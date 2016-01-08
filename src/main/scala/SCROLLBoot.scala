@@ -1,4 +1,3 @@
-import annotations.Role
 import scroll.internal.Compartment
 
 object SCROLLBoot extends App {
@@ -22,7 +21,7 @@ object SCROLLBoot extends App {
      * A role that will be bound to [[SomePlayer]] later on
      * and will alter its behaviour.
      */
-    @Role class SomeRole {
+    class SomeRole {
       def hello(): Unit = {
         println("Hello World from some role!")
       }
