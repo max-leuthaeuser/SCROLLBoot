@@ -1,49 +1,54 @@
 import scroll.internal.Compartment
+import scroll.internal.support.DispatchQuery
+import DispatchQuery._
 
 object SCROLLBoot extends App {
 
-  /**
-   * Just a simple natural type.
-   * Can not do anything but printing some statement on stdout.
-   */
-  class SomePlayer {
-    def hello(): Unit = {
-      println("Hello World from some player!")
-    }
-  }
+  case class Copter(name: String)
 
-  /**
-   * A new compartment. Only containing one role for demo purposes.
-   */
   class SomeCompartment extends Compartment {
 
-    /**
-     * A role that will be bound to [[SomePlayer]] later on
-     * and will alter its behaviour.
-     */
-    class SomeRole {
-      def hello(): Unit = {
-        println("Hello World from some role!")
+    case class SimpleAPI() {
+      def fly(): Unit = {
+        val name: String = (+this).name
+        println(name + " is flying ...")
+      }
+    }
+
+    case class EmergencyDetector() {
+
+      def isFalling: Boolean = true // faked
+
+      def fly(): Unit = {
+        val name: String = (+this).name
+        println(name + " is flying safely ...")
+      }
+    }
+
+    case class Parachute() {
+      def openParachute(): Unit = {
+        println("Opening ... ")
       }
     }
 
   }
 
-  val player = new SomePlayer()
-
-  /**
-   * This will use the standard behaviour defined in the natural type.
-   */
-  player.hello()
-
-  /**
-   * Creating an anonymous instance of the [[Compartment]] defined above.
-   */
   new SomeCompartment {
-    /**
-     * Creating a play-relation now and calling the compound-objects behaviour
-     * which is actually defined in its role [[SomeRole]].
-     */
-    player play new SomeRole() hello()
+
+    val dji = Copter("DJIPhantom") play SimpleAPI() play EmergencyDetector() play Parachute()
+
+    implicit val dd =
+      From(_.isInstanceOf[Copter]).
+        To(_.isInstanceOf[EmergencyDetector]).
+        Through(anything).
+        Bypassing(_.isInstanceOf[SimpleAPI])
+
+    dji.fly()
+
+    val falling: Boolean = dji.isFalling()
+    if (falling) {
+      dji.openParachute()
+    }
+
   }
 }
