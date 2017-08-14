@@ -35,13 +35,15 @@ object SCROLLBoot extends App {
 
   new SomeCompartment {
 
-    val dji = Copter("DJIPhantom") play SimpleAPI() play EmergencyDetector() play Parachute()
+    val dji = Copter("DJIPhantom") <+> SimpleAPI() <+> EmergencyDetector() <+> Parachute()
 
+    /*
     implicit val dd =
       From(_.isInstanceOf[Copter]).
         To(_.isInstanceOf[EmergencyDetector]).
         Through(anything).
         Bypassing(_.isInstanceOf[SimpleAPI])
+    */
 
     dji.fly()
 

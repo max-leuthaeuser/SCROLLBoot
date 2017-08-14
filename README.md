@@ -10,10 +10,11 @@ Small SCROLL boot demo application build with Scala to show how to use [SCROLL][
 2. Clone this repository.
 
 3. Set up your favorite IDE:
-  1. For Intellij: run ```sbt gen-idea``` and open the generated project with Intellij.
-  2. For Eclipse: run ```sbt eclipse``` and import the generated project with Eclipse.
+  1. For Intellij: use the built-in import SBT project functionality.
+  2. For Eclipse: you may want to use SBT and run ```eclipse``` (to config see [here][gen-eclipse]).
 
 4. Run it with ```sbt run``` or directly with your IDE as Scala Application (```src/main/scala/SCROLLBoot.scala```).
 
 [scroll]: https://github.com/max-leuthaeuser/SCROLL
+[gen-eclipse]: https://github.com/typesafehub/sbteclipse
 [sbt]: http://www.scala-sbt.org/0.13/tutorial/index.html
