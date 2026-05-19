@@ -1,8 +1,8 @@
-import scroll.internal.Compartment
-import scroll.internal.support.DispatchQuery
-import DispatchQuery._
+import scroll.Compartment
 
-object SCROLLBoot extends App {
+object SCROLLBoot {
+
+  @main def runSCROLLBoot(): Unit = {
 
   case class Copter(name: String)
 
@@ -52,5 +52,6 @@ object SCROLLBoot extends App {
       dji.openParachute()
     }
 
+  }
   }
 }
